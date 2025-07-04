@@ -1,0 +1,19 @@
+# Encabezados principales
+encabezado_1_texto=🔥 ¿Vidrios empañados cuando más los necesitas claros?
+encabezado_1_visible=true
+
+encabezado_2_texto=Con nuestra esponja antiempañante premium evitas el empañamiento y recuperas visibilidad en segundos.
+encabezado_2_visible=false
+
+# Puedes agregar más si quieres en el futuro
+# encabezado_3_texto=Otro texto más
+# encabezado_3_visible=false
+
+# Estilo común
+encabezado_colorTexto=#e74c3c
+encabezado_tamano=28px
+encabezado_fuente='Arial Black'
+encabezado_negrita=true
+encabezado_cursiva=false
+
+# Para párrafos, si quieres estilos distintos, puedes poner encabezado2_colorTexto, etc.

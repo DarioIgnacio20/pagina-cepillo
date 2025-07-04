@@ -1,0 +1,14 @@
+[beneficio1]
+icono=🔄
+titulo=Reutilizable y duraderov2
+texto=No más papeles ni toallas que dejan marcas. Este cepillo está hecho para durar y funcionar siempre.
+
+[beneficio2]
+icono=⏱
+titulo=Ahorra tiempo cada mañanav2
+texto=Despídete de las esperas con el desempañador del auto. Con este cepillo, limpias y sales de inmediato.
+
+[beneficio3]
+icono=🧽
+titulo=También sirve para vidrios laterales y retrovisoresv2
+texto=No solo el parabrisas: úsalo en todas las superficies del auto que se empañan o acumulan humedad.

@@ -1,0 +1,48 @@
+[comentario1]
+nombre=Jen
+estrellas=5
+fecha=2020-Jun-27
+titulo=In love!!
+texto=I bought this a couple weeks ago and love it!
+imagenes=img1.jpg,img2.jpg,img3.jpg
+
+[comentario2]
+nombre=June
+estrellas=5
+fecha=2020-Jun-27
+titulo=Amazing Amazing Amazing!!!
+texto=I love the way it feels in my lips! Awesome color shades and I love it ❤️❤️❤️
+imagenes=
+
+[comentario3]
+nombre=Ryea
+estrellas=4
+fecha=2020-Jun-27
+titulo=Favorite
+texto=I bought this palette for my party and it's truly amazing. The colors are so rich and beautiful, and stayed on all night. I love it!!
+imagenes=img5.jpg,img6.jpg,img7.jpg
+
+[comentario4]
+nombre=Jen
+estrellas=5
+fecha=2020-Jun-27
+titulo=In love!!
+texto=I bought this a couple weeks ago and love it!
+imagenes=img1.jpg,img2.jpg,img3.jpg,img4.jpg
+
+[comentario5]
+nombre=June
+estrellas=5
+fecha=2020-Jun-27
+titulo=Amazing Amazing Amazing!!!
+texto=I love the way it feels in my lips! Awesome color shades and I love it ❤️❤️❤️
+imagenes=
+
+[comentario6]
+nombre=Ryea
+estrellas=4
+fecha=2020-Jun-27
+titulo=Favorite
+texto=I bought this palette for my party and it's truly amazing. The colors are so rich and beautiful, and stayed on all night. I love it!!
+imagenes=img5.jpg,img6.jpg,img7.jpg
+

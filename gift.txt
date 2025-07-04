@@ -1,0 +1,19 @@
+[beneficio1]
+gif=gif1.gif
+titulo=Beneficio Uno
+texto=Este elemento reduce el empañamiento de forma inmediata y mejora tu visibilidad al instante.
+
+[beneficio2]
+gif=gif2.gif
+titulo=Beneficio Dos
+texto=Protege todas las superficies del auto sin dejar rayas ni marcas.
+
+[beneficio3]
+gif=gif3.gif
+titulo=Beneficio Tres
+texto=Fácil de usar con una sola mano y diseño ergonómico para mayor comodidad.
+
+[beneficio4]
+gif=gif4.gif
+titulo=Beneficio Cuarto
+texto=Resistente al agua y apto para todo tipo de clima.
