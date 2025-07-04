@@ -85,23 +85,30 @@
   <div id="infoProducto" class="product"></div>
 
 
-  <form>
-    <input type="text" class="input" placeholder="Nombre y Apellido" required>
-    <input type="tel" class="input" placeholder="Teléfono" required>
-    <input type="text" class="input" placeholder="Dirección Exacta + Número" required>
-    <select class="input" required>
-      <option value="">Región</option>
-      <option value="region1">Región 1</option>
-      <option value="region2">Región 2</option>
-    </select>
-    <select class="input" required>
-      <option value="">Comuna</option>
-      <option value="comuna1">Comuna 1</option>
-      <option value="comuna2">Comuna 2</option>
-    </select>
-    <div class="warning">⚠ Atención: Revisa que tu dirección y número estén correctos para evitar retrasos en la entrega</div>
-    <button type="submit" class="btn-pedido">Realizar Pedido</button>
-  </form>
+<form action="https://formspree.io/f/meokwjye" method="POST">
+  <input type="text" class="input" name="nombre" placeholder="Nombre y Apellido" required>
+  <input type="tel" class="input" name="telefono" placeholder="Teléfono" required>
+  <input type="text" class="input" name="direccion" placeholder="Dirección Exacta + Número" required>
+
+  <select class="input" name="region" required>
+    <option value="">Región</option>
+    <option value="region1">Región 1</option>
+    <option value="region2">Región 2</option>
+  </select>
+
+  <select class="input" name="comuna" required>
+    <option value="">Comuna</option>
+    <option value="comuna1">Comuna 1</option>
+    <option value="comuna2">Comuna 2</option>
+  </select>
+
+  <!-- producto dinámico -->
+  <input type="hidden" name="producto" id="productoHidden">
+
+  <div class="warning">⚠ Atención: Revisa que tu dirección y número estén correctos para evitar retrasos en la entrega</div>
+  <button type="submit" class="btn-pedido">Realizar Pedido</button>
+</form>
+
 
 
 <!-- ... (HTML hasta antes del <script>) ... -->
@@ -111,6 +118,24 @@
   document.getElementById('cerrarModal').onclick = function () {
     window.parent.postMessage('cerrarModal', '*');
   };
+
+
+
+// Esto actualiza el campo oculto con el título del producto
+const hidden = document.getElementById('productoHidden');
+fetch('producto.txt')
+  .then(r => r.text())
+  .then(text => {
+    const producto = {};
+    text.split('\n').forEach(line => {
+      if (line.includes('=')) {
+        const [k, v] = line.split('=');
+        producto[k.trim()] = v.trim();
+      }
+    });
+    hidden.value = producto.titulo || 'Sin título';
+  });
+
 
   // Envío del formulario
 // Envío del formulario a Google Sheets
