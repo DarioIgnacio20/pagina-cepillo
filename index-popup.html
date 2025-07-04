@@ -84,139 +84,77 @@
 
   <div id="infoProducto" class="product"></div>
 
+  <!-- FORMULARIO -->
+  <form action="https://formspree.io/f/meokwjye" method="POST">
+    <input type="text" class="input" name="nombre" placeholder="Nombre y Apellido" required>
+    <input type="tel" class="input" name="telefono" placeholder="Teléfono" required>
+    <input type="text" class="input" name="direccion" placeholder="Dirección Exacta + Número" required>
 
-<form action="https://formspree.io/f/meokwjye" method="POST">
-  <input type="text" class="input" name="nombre" placeholder="Nombre y Apellido" required>
-  <input type="tel" class="input" name="telefono" placeholder="Teléfono" required>
-  <input type="text" class="input" name="direccion" placeholder="Dirección Exacta + Número" required>
+    <select class="input" name="region" required>
+      <option value="">Región</option>
+      <option value="region1">Región 1</option>
+      <option value="region2">Región 2</option>
+    </select>
 
-  <select class="input" name="region" required>
-    <option value="">Región</option>
-    <option value="region1">Región 1</option>
-    <option value="region2">Región 2</option>
-  </select>
+    <select class="input" name="comuna" required>
+      <option value="">Comuna</option>
+      <option value="comuna1">Comuna 1</option>
+      <option value="comuna2">Comuna 2</option>
+    </select>
 
-  <select class="input" name="comuna" required>
-    <option value="">Comuna</option>
-    <option value="comuna1">Comuna 1</option>
-    <option value="comuna2">Comuna 2</option>
-  </select>
+    <!-- producto dinámico -->
+    <input type="hidden" name="producto" id="productoHidden">
 
-  <!-- producto dinámico -->
-  <input type="hidden" name="producto" id="productoHidden">
+    <div class="warning">⚠ Atención: Revisa que tu dirección y número estén correctos para evitar retrasos en la entrega</div>
+    <button type="submit" class="btn-pedido">Realizar Pedido</button>
+  </form>
 
-  <div class="warning">⚠ Atención: Revisa que tu dirección y número estén correctos para evitar retrasos en la entrega</div>
-  <button type="submit" class="btn-pedido">Realizar Pedido</button>
-</form>
-
-
-
-<!-- ... (HTML hasta antes del <script>) ... -->
-
-<script>
-  // Botón "X"
-  document.getElementById('cerrarModal').onclick = function () {
-    window.parent.postMessage('cerrarModal', '*');
-  };
-
-
-
-// Esto actualiza el campo oculto con el título del producto
-const hidden = document.getElementById('productoHidden');
-fetch('producto.txt')
-  .then(r => r.text())
-  .then(text => {
-    const producto = {};
-    text.split('\n').forEach(line => {
-      if (line.includes('=')) {
-        const [k, v] = line.split('=');
-        producto[k.trim()] = v.trim();
-      }
-    });
-    hidden.value = producto.titulo || 'Sin título';
-  });
-
-
-  // Envío del formulario
-// Envío del formulario a Google Sheets
-document.querySelector('form').onsubmit = function (e) {
-  e.preventDefault();
-
-  const inputs = document.querySelectorAll('.input');
-  const datos = {
-    nombre: inputs[0].value,
-    telefono: inputs[1].value,
-    direccion: inputs[2].value,
-    region: inputs[3].value,
-    comuna: inputs[4].value,
-    producto: document.getElementById('infoProducto').innerText
-  };
-
-  fetch('https://script.google.com/macros/s/AKfycbx7diIVn5JvR5VvjsNbocQGrn3wJz6SHhPCmMIO5J7s6Bh6ry1RWO4jbK1cEGJoFMh9/exec', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(datos)
-  })
-  .then(response => response.text())
-  .then(resp => {
-    if (resp === "OK") {
-      alert('¡Pedido enviado con éxito!');
+  <!-- SCRIPT -->
+  <script>
+    // Cerrar modal al presionar "X"
+    document.getElementById('cerrarModal').onclick = function () {
       window.parent.postMessage('cerrarModal', '*');
-    } else {
-      alert('Error al guardar el pedido');
-    }
-  })
-  .catch((error) => {
-  console.error('❌ Error al conectar con Google Sheets:', error);
-  alert('Error al conectar con la hoja de pedido');
-});
+    };
 
-};
+    // Variables globales
+    let producto = {};
+    let cantidadRecibida = '1';
 
-
-  // Variables globales
-  let producto = {}; // ✅ para que sea accesible desde actualizarProducto()
-  let cantidadRecibida = '1';
-
-  // Escuchar cantidad seleccionada desde el padre
-  window.addEventListener('message', function (event) {
-    if (event.data && event.data.cantidadSeleccionada) {
-      cantidadRecibida = event.data.cantidadSeleccionada;
-      if (Object.keys(producto).length > 0) {
-        actualizarProducto(); // ✅ si ya cargó el producto
-      }
-    }
-  });
-
-  function actualizarProducto() {
-    const info = document.getElementById('infoProducto');
-    const titulo = producto.titulo || '';
-    const cantidad = producto[`cantidad_${cantidadRecibida}`] || cantidadRecibida;
-    const precio = producto[`precio_${cantidadRecibida}`] || '0';
-
-    info.innerHTML = `${titulo}<br>${cantidad} Cepillo(s) - $${Number(precio).toLocaleString("es-CL")} (Envío gratis)`;
-  }
-
-  // Cargar datos del producto
-  fetch('producto.txt')
-    .then(response => response.text())
-    .then(data => {
-      const lines = data.trim().split('\n');
-      lines.forEach(line => {
-        if (line.includes('=') && !line.trim().startsWith('#')) {
-          const [key, value] = line.split('=');
-          producto[key.trim()] = value.trim();
+    // Escuchar selección de cantidad desde ventana padre
+    window.addEventListener('message', function (event) {
+      if (event.data && event.data.cantidadSeleccionada) {
+        cantidadRecibida = event.data.cantidadSeleccionada;
+        if (Object.keys(producto).length > 0) {
+          actualizarProducto();
         }
-      });
-
-      actualizarProducto(); // ✅ ejecuta con cantidad recibida
+      }
     });
-</script>
 
+    function actualizarProducto() {
+      const info = document.getElementById('infoProducto');
+      const titulo = producto.titulo || '';
+      const cantidad = producto[`cantidad_${cantidadRecibida}`] || cantidadRecibida;
+      const precio = producto[`precio_${cantidadRecibida}`] || '0';
+      info.innerHTML = `${titulo}<br>${cantidad} Cepillo(s) - $${Number(precio).toLocaleString("es-CL")} (Envío gratis)`;
 
+      // También actualizar el campo oculto para enviar por Formspree
+      const hidden = document.getElementById('productoHidden');
+      hidden.value = `${titulo} - ${cantidad} unidad(es) - $${Number(precio).toLocaleString("es-CL")}`;
+    }
 
+    // Cargar datos desde producto.txt
+    fetch('producto.txt')
+      .then(r => r.text())
+      .then(text => {
+        text.split('\n').forEach(line => {
+          if (line.includes('=') && !line.trim().startsWith('#')) {
+            const [k, v] = line.split('=');
+            producto[k.trim()] = v.trim();
+          }
+        });
+        actualizarProducto();
+      });
+  </script>
 
 </body>
 </html>
